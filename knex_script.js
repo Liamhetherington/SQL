@@ -11,9 +11,20 @@ var knex = require('knex')({
   }
 });
 
-knex.select('first_name').from('famous_people')
+const name = process.argv[2];
+
+knex.select('first_name', 'last_name', 'birthdate')
+      .where({first_name: name})
+      .orWhere({last_name: name})
+      .from('famous_people')
       .asCallback(function(err, rows) {
         if (err) return console.error(err);
-        console.log("result ",rows);
-        knex.destroy();
-      });
+        rows.forEach((row, index) =>
+        console.log("- " + (index + 1) + ": " + row.first_name
+          + " " + row.last_name + ", born "
+          + row.birthdate.toLocaleDateString()
+          )
+        );
+      knex.destroy();
+});
+
