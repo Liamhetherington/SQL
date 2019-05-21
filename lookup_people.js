@@ -23,7 +23,9 @@ client.connect((err) => {
     return console.error("error running query", err);
     }
     result.rows.forEach((row, index) =>
-      console.log("- " + (index + 1) + ": " + row.first_name + " " + row.last_name + ", born " + row.birthdate.toLocaleDateString()));
+      console.log("- " + (index + 1)
+        + ": " + row.first_name + " " + row.last_name
+        + ", born " + row.birthdate.toLocaleDateString()));
     client.end();
   })
 });
