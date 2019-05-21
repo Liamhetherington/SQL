@@ -13,15 +13,13 @@ var knex = require('knex')({
 
 
 knex('famous_people')
-.returning('first_name','last_name', 'birthdate')
-.insert(
-  {first_name: process.argv.slice(2)[0]},
-  {last_name: process.argv.slice(2)[1]},
-  {birthdate: process.argv.slice(2)[2]}
-  )
+.insert({
+  first_name: process.argv.slice(2)[0],
+  last_name: process.argv.slice(2)[1],
+  birthdate: process.argv.slice(2)[2]
+  })
   .asCallback(function(err, rows) {
         if (err) return console.error(err);
-        rows.forEach((row, index) =>
-        console.log("- " + (index + 1) + ": " + row.first_name
-          + " " + row.last_name + ", born "
+        console.log(rows);
+})
 
