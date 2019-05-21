@@ -1,7 +1,7 @@
-const pg = require("pg");
+const knex = require("knex");
 const settings = require("./settings");
 
-const client = new pg.Client({
+const client = new knex.Client({
   user     : settings.user,
   password : settings.password,
   database : settings.database,
@@ -22,8 +22,8 @@ client.connect((err) => {
     if (err) {
     return console.error("error running query", err);
     }
-    result.rows.forEach((row, index) =>
-      console.log("- " + (index + 1) + ": " + row.first_name + " " + row.last_name + ", born " + row.birthdate.toLocaleDateString()));
+    result.rows.forEach(row =>
+      console.log(row.first_name + " " + row.last_name + ", born " + row.birthdate.toLocaleDateString()));
     client.end();
   })
 });
